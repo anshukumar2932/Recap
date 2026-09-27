@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
 import { Navbar } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import Chevron from "react-chevron";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -143,7 +144,7 @@ function Popup() {
     <Container>
       <Navbar>
         <Navbar.Brand>
-          <img src="/leetcode-logo.png" width="30" height="30" alt="LeetCode logo" />
+          <img src="/Recap.png" width="30" height="30" alt="Recap logo" />
         </Navbar.Brand>
         <Navbar.Brand href="#home">Daily-Challenge Reminder</Navbar.Brand>
         <Navbar.Toggle />
@@ -153,8 +154,9 @@ function Popup() {
               🔥 {streak} day{streak === 1 ? "" : "s"}
             </Navbar.Text>
           )}
+
           {userName ? (
-            <Navbar.Text>
+            <Navbar.Text className="me-3">
               Signed in as:{" "}
               <a href={profileLink} target="_blank" rel="noreferrer">
                 {userName}
@@ -162,7 +164,7 @@ function Popup() {
             </Navbar.Text>
           ) : (
             userName === "" && (
-              <Navbar.Text>
+              <Navbar.Text className="me-3">
                 Please Sign-in{" "}
                 <a href="https://leetcode.com" target="_blank" rel="noreferrer">
                   here
@@ -170,6 +172,14 @@ function Popup() {
               </Navbar.Text>
             )
           )}
+
+          <Button
+            variant="outline-secondary"
+            size="sm"
+            onClick={() => chrome.runtime.openOptionsPage()}
+          >
+            Settings
+          </Button>
         </Navbar.Collapse>
       </Navbar>
 

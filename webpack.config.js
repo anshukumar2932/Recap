@@ -6,11 +6,14 @@ module.exports = {
   entry: {
     background: "./src/background.js",
     popup: "./src/popup.jsx",
+    settings: "./src/settings.jsx",
   },
+
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
   },
+
   module: {
     rules: [
       {
@@ -24,15 +27,24 @@ module.exports = {
       },
     ],
   },
+
   resolve: {
     extensions: [".js", ".jsx"],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/popup.html",
       filename: "popup.html",
       chunks: ["popup"],
     }),
+
+    new HtmlWebpackPlugin({
+      template: "./src/settings.html",
+      filename: "settings.html",
+      chunks: ["settings"],
+    }),
+
     new CopyPlugin({
       patterns: [
         { from: "public/manifest.json", to: "manifest.json" },

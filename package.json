@@ -1,6 +1,6 @@
 {
   "name": "Recap",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Chrome extension that reminds you to solve LeetCode's daily challenge",
   "scripts": {
     "dev": "webpack --watch --config webpack.dev.js",

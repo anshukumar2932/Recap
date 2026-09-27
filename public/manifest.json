@@ -1,8 +1,9 @@
 {
   "name": "Daily-Challenge Reminder",
   "description": "Reminds user to complete the LeetCode Daily Challenge Question",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "manifest_version": 3,
+  "options_page": "settings.html",
   "background": {
     "service_worker": "background.js"
   },
@@ -11,8 +12,10 @@
     "48": "Recap.png",
     "128": "Recap.png"
   },
-  "permissions": ["cookies", "alarms", "notifications"],
-  "host_permissions": ["https://leetcode.com/*"],
+  "permissions": [
+    "cookies","alarms","notifications","storage"
+  ],
+  "host_permissions": [ "https://leetcode.com/*"],
   "action": {
     "default_popup": "popup.html"
   }
