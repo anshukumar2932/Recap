@@ -1,6 +1,6 @@
 {
-  "name": "leetcode-daily-reminder",
-  "version": "1.0.0",
+  "name": "Recap",
+  "version": "0.1.1",
   "description": "Chrome extension that reminds you to solve LeetCode's daily challenge",
   "scripts": {
     "dev": "webpack --watch --config webpack.dev.js",
