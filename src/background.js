@@ -1,12 +1,36 @@
-const ALARM_NAME = "Reminder-Alarm";
-const DAILY_HOUR_UTC = 0;
-const DAILY_MINUTE_UTC = 0;
+import { fetchCodeforcesStreak } from "./codeforces";
+
+const LEETCODE_ALARM = "Leetcode-Reminder";
+const CODEFORCES_ALARM = "Codeforces-Reminder";
+
+const LEETCODE_NOTIF = "Leetcode Reminder";
+const LEETCODE_ERROR_NOTIF = "Leetcode Reminder Error";
+const CODEFORCES_NOTIF = "Codeforces Reminder";
+
+const CODEFORCES_RETRY_MINUTES = 120; // mirrors LeetCode's own retry pattern
 
 const DEFAULT_SETTINGS = {
   remindersEnabled: true,
   retryInterval: 30,
   notificationsEnabled: true,
+  codeforcesEnabled: false,
+  codeforcesHandle: "",
+  dailyCheckHourUTC: 0,
+  dailyCheckMinuteUTC: 0,
 };
+
+// Keys that require rebuilding alarms
+const RESCHEDULE_KEYS = [
+  "remindersEnabled",
+  "retryInterval",
+  "dailyCheckHourUTC",
+  "dailyCheckMinuteUTC",
+  "codeforcesEnabled",
+  "codeforcesHandle",
+];
+
+// Keys that only affect notification visibility, never alarm timing
+const NOTIFICATION_ONLY_KEYS = ["notificationsEnabled"];
 
 function getSettings() {
   return new Promise((resolve) => {
@@ -14,31 +38,120 @@ function getSettings() {
   });
 }
 
-function scheduleNextDailyCheck() {
+// ---------- failure counters, persisted across SW restarts ----------
+
+async function getFailureCount(key) {
+  const data = await new Promise((resolve) =>
+    chrome.storage.local.get({ [key]: 0 }, resolve)
+  );
+  return data[key];
+}
+
+async function setFailureCount(key, value) {
+  await chrome.storage.local.set({ [key]: value });
+}
+
+// ---------- LeetCode scheduling ----------
+
+function nextDailyInstant(hourUTC, minuteUTC) {
   const now = new Date();
   const next = new Date();
-  next.setUTCHours(DAILY_HOUR_UTC, DAILY_MINUTE_UTC, 0, 0);
-
+  next.setUTCHours(hourUTC, minuteUTC, 0, 0);
   if (next.getTime() <= now.getTime()) {
     next.setUTCDate(next.getUTCDate() + 1);
   }
-
-  chrome.alarms.create(ALARM_NAME, { when: next.getTime() });
+  return next.getTime();
 }
 
-async function scheduleRetry() {
-  const { retryInterval } = await getSettings();
-  chrome.alarms.create(ALARM_NAME, { delayInMinutes: retryInterval });
+function scheduleLeetCodeDailyCheck(hourUTC, minuteUTC) {
+  chrome.alarms.create(LEETCODE_ALARM, { when: nextDailyInstant(hourUTC, minuteUTC) });
 }
 
-chrome.alarms.get(ALARM_NAME, (alarm) => {
-  if (!alarm) {
-    scheduleNextDailyCheck();
+function scheduleLeetCodeRetry(retryInterval) {
+  chrome.alarms.create(LEETCODE_ALARM, { delayInMinutes: retryInterval });
+}
+
+function clearLeetCodeAlarm() {
+  return chrome.alarms.clear(LEETCODE_ALARM);
+}
+
+// ---------- Codeforces scheduling ----------
+
+function scheduleCodeforcesDailyCheck(hourUTC, minuteUTC) {
+  chrome.alarms.create(CODEFORCES_ALARM, { when: nextDailyInstant(hourUTC, minuteUTC) });
+}
+
+function scheduleCodeforcesRetry() {
+  chrome.alarms.create(CODEFORCES_ALARM, { delayInMinutes: CODEFORCES_RETRY_MINUTES });
+}
+
+function clearCodeforcesAlarm() {
+  return chrome.alarms.clear(CODEFORCES_ALARM);
+}
+
+// ---------- Rebuild schedules from current settings (serialized) ----------
+
+async function rescheduleFromSettings() {
+  const settings = await getSettings();
+
+  await clearLeetCodeAlarm();
+  if (settings.remindersEnabled) {
+    scheduleLeetCodeDailyCheck(settings.dailyCheckHourUTC, settings.dailyCheckMinuteUTC);
+  } else {
+    chrome.notifications.clear(LEETCODE_NOTIF);
+    chrome.notifications.clear(LEETCODE_ERROR_NOTIF);
+    await setFailureCount("leetcodeConsecutiveFailures", 0);
+  }
+
+  await clearCodeforcesAlarm();
+  if (settings.remindersEnabled && settings.codeforcesEnabled && settings.codeforcesHandle) {
+    scheduleCodeforcesDailyCheck(settings.dailyCheckHourUTC, settings.dailyCheckMinuteUTC);
+  } else {
+    chrome.notifications.clear(CODEFORCES_NOTIF);
+    await setFailureCount("codeforcesConsecutiveFailures", 0);
+  }
+}
+
+// Serialize all reschedule requests through one promise chain so concurrent
+// triggers (startup + storage change, or rapid settings edits) can't race.
+let reschedulePromise = Promise.resolve();
+function requestReschedule() {
+  reschedulePromise = reschedulePromise.catch(() => {}).then(rescheduleFromSettings);
+  return reschedulePromise;
+}
+
+chrome.runtime.onStartup.addListener(requestReschedule);
+chrome.runtime.onInstalled.addListener(requestReschedule);
+
+chrome.storage.onChanged.addListener(async (changes, area) => {
+  if (area !== "local") return;
+
+  if (RESCHEDULE_KEYS.some((key) => key in changes)) {
+    requestReschedule();
+    return; // reschedule already clears notifications where relevant
+  }
+
+  if (NOTIFICATION_ONLY_KEYS.some((key) => key in changes)) {
+    const settings = await getSettings();
+    if (!settings.notificationsEnabled) {
+      chrome.notifications.clear(LEETCODE_NOTIF);
+      chrome.notifications.clear(LEETCODE_ERROR_NOTIF);
+      chrome.notifications.clear(CODEFORCES_NOTIF);
+    }
+    // Existing alarms/retries are left untouched — only visibility changes.
   }
 });
 
+chrome.alarms.getAll((alarms) => {
+  if (alarms.length === 0) {
+    requestReschedule();
+  }
+});
+
+// ---------- Notification click handler ----------
+
 chrome.notifications.onClicked.addListener((notifId) => {
-  if (notifId !== "Leetcode Reminder") return;
+  if (notifId !== LEETCODE_NOTIF) return;
 
   chrome.storage.local.get("pendingProblemUrl", (data) => {
     if (data.pendingProblemUrl) {
@@ -47,15 +160,10 @@ chrome.notifications.onClicked.addListener((notifId) => {
   });
 });
 
-let consecutiveFailures = 0;
+// ---------- LeetCode alarm handler ----------
 
-chrome.alarms.onAlarm.addListener(async (alarm) => {
-  if (alarm.name !== ALARM_NAME) return;
-  const settings = await getSettings();
-  if (!settings.remindersEnabled) {
-    scheduleNextDailyCheck();
-    return;
-  }
+async function handleLeetCodeAlarm(settings) {
+  if (!settings.remindersEnabled) return;
 
   const graphqlQuery = JSON.stringify({
     query: `query questionOfToday {
@@ -85,7 +193,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
     { domain: "leetcode.com", name: "LEETCODE_SESSION" },
     (cookies) => {
       if (!cookies || cookies.length === 0) {
-        scheduleRetry();
+        scheduleLeetCodeRetry(settings.retryInterval);
         return;
       }
 
@@ -98,19 +206,28 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
         headers,
         body: graphqlQuery,
       })
-        .then((response) => response.json())
-        .then((result) => {
-          consecutiveFailures = 0;
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`LeetCode HTTP ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(async (result) => {
+          const challenge = result?.data?.activeDailyCodingChallengeQuestion;
+          if (!challenge) {
+            throw new Error("Invalid LeetCode response");
+          }
 
-          const challenge = result.data.activeDailyCodingChallengeQuestion;
+          await setFailureCount("leetcodeConsecutiveFailures", 0);
+          chrome.notifications.clear(LEETCODE_ERROR_NOTIF);
 
           if (challenge.userStatus !== "Finish") {
             const problemUrl = "https://leetcode.com" + challenge.link;
             chrome.storage.local.set({ pendingProblemUrl: problemUrl });
 
             if (settings.notificationsEnabled) {
-              chrome.notifications.clear("Leetcode Reminder", () => {
-                chrome.notifications.create("Leetcode Reminder", {
+              chrome.notifications.clear(LEETCODE_NOTIF, () => {
+                chrome.notifications.create(LEETCODE_NOTIF, {
                   type: "basic",
                   iconUrl: "/Recap.png",
                   title: "Daily-Challenge Reminder!",
@@ -122,19 +239,20 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
               });
             }
 
-            scheduleRetry();
+            scheduleLeetCodeRetry(settings.retryInterval);
           } else {
-            chrome.notifications.clear("Leetcode Reminder");
+            chrome.notifications.clear(LEETCODE_NOTIF);
             chrome.storage.local.remove("pendingProblemUrl");
-            scheduleNextDailyCheck();
+            scheduleLeetCodeDailyCheck(settings.dailyCheckHourUTC, settings.dailyCheckMinuteUTC);
           }
         })
-        .catch((error) => {
+        .catch(async (error) => {
           console.log(error);
-          consecutiveFailures++;
+          const failures = (await getFailureCount("leetcodeConsecutiveFailures")) + 1;
+          await setFailureCount("leetcodeConsecutiveFailures", failures);
 
-          if (consecutiveFailures === 3 && settings.notificationsEnabled) {
-            chrome.notifications.create("Leetcode Reminder Error", {
+          if (failures === 3 && settings.notificationsEnabled) {
+            chrome.notifications.create(LEETCODE_ERROR_NOTIF, {
               type: "basic",
               iconUrl: "/Recap.png",
               title: "Reminder check failing",
@@ -144,8 +262,56 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
             });
           }
 
-          scheduleRetry();
+          scheduleLeetCodeRetry(settings.retryInterval);
         });
     }
   );
+}
+
+// ---------- Codeforces alarm handler ----------
+
+async function handleCodeforcesAlarm(settings) {
+  if (!settings.codeforcesEnabled || !settings.codeforcesHandle) return;
+
+  try {
+    const { solvedToday, streak } = await fetchCodeforcesStreak(settings.codeforcesHandle);
+    await setFailureCount("codeforcesConsecutiveFailures", 0);
+
+    if (!solvedToday) {
+      if (settings.notificationsEnabled) {
+        chrome.notifications.clear(CODEFORCES_NOTIF, () => {
+          chrome.notifications.create(CODEFORCES_NOTIF, {
+            type: "basic",
+            iconUrl: "/Recap.png",
+            title: "Codeforces streak reminder!",
+            message: `No accepted submission today — current streak: ${streak} day${
+              streak === 1 ? "" : "s"
+            }.`,
+            priority: 2,
+          });
+        });
+      }
+      scheduleCodeforcesRetry();
+    } else {
+      chrome.notifications.clear(CODEFORCES_NOTIF);
+      scheduleCodeforcesDailyCheck(settings.dailyCheckHourUTC, settings.dailyCheckMinuteUTC);
+    }
+  } catch (error) {
+    console.error("Codeforces check failed:", error);
+    const failures = (await getFailureCount("codeforcesConsecutiveFailures")) + 1;
+    await setFailureCount("codeforcesConsecutiveFailures", failures);
+    scheduleCodeforcesRetry();
+  }
+}
+
+// ---------- Single alarm dispatcher ----------
+
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+  const settings = await getSettings();
+
+  if (alarm.name === LEETCODE_ALARM) {
+    await handleLeetCodeAlarm(settings);
+  } else if (alarm.name === CODEFORCES_ALARM) {
+    await handleCodeforcesAlarm(settings);
+  }
 });

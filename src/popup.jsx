@@ -135,18 +135,19 @@ function Popup() {
   const [profileLink, setProfileLink] = useState("");
   const [streak, setStreak] = useState(null);
 
-  // Codeforces: cfHandle is null while settings load, "" when not configured
+  // Codeforces: cfHandle is null while settings load, "" when not
+  // configured OR when the feature toggle is off
   const [cfHandle, setCfHandle] = useState(null);
   const [cfStreak, setCfStreak] = useState(null);
   const [cfError, setCfError] = useState(false);
 
   useEffect(() => {
     chrome.storage.local.get(
-      { codeforcesHandle: "" },
-      ({ codeforcesHandle }) => {
-        setCfHandle(codeforcesHandle);
+      { codeforcesEnabled: false, codeforcesHandle: "" },
+      ({ codeforcesEnabled, codeforcesHandle }) => {
+        setCfHandle(codeforcesEnabled ? codeforcesHandle : "");
 
-        if (!codeforcesHandle) {
+        if (!codeforcesEnabled || !codeforcesHandle) {
           return;
         }
 
