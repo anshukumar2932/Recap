@@ -8,22 +8,26 @@ const DEFAULT_SETTINGS = {
   remindersEnabled: true,
   retryInterval: 30,
   notificationsEnabled: true,
+  codeforcesHandle: "",
 };
 
 function Settings() {
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [saved, setSaved] = useState(false);
 
+  // Load saved settings
   useEffect(() => {
     chrome.storage.local.get(DEFAULT_SETTINGS, (data) => {
       setSettings({
         remindersEnabled: data.remindersEnabled,
         retryInterval: Number(data.retryInterval),
         notificationsEnabled: data.notificationsEnabled,
+        codeforcesHandle: data.codeforcesHandle || "",
       });
     });
   }, []);
 
+  // Update a single setting
   const updateSetting = (key, value) => {
     setSettings((previous) => ({
       ...previous,
@@ -33,8 +37,17 @@ function Settings() {
     setSaved(false);
   };
 
+  // Save settings
   const saveSettings = () => {
     chrome.storage.local.set(settings, () => {
+      if (chrome.runtime.lastError) {
+        console.error(
+          "Failed to save settings:",
+          chrome.runtime.lastError
+        );
+        return;
+      }
+
       setSaved(true);
 
       setTimeout(() => {
@@ -58,12 +71,14 @@ function Settings() {
         </Navbar.Brand>
       </Navbar>
 
+      {/* SAVED MESSAGE*/}
       {saved && (
         <Alert variant="success">
           Settings saved successfully.
         </Alert>
       )}
 
+      {/* REMINDER SETTINGS */}
       <Card className="mb-4">
         <Card.Body>
           <Card.Title>Reminder</Card.Title>
@@ -83,6 +98,7 @@ function Settings() {
         </Card.Body>
       </Card>
 
+      {/* DAILY CHECK*/}
       <Card className="mb-4">
         <Card.Body>
           <Card.Title>Daily Check</Card.Title>
@@ -106,6 +122,7 @@ function Settings() {
         </Card.Body>
       </Card>
 
+      {/*RETRY INTERVAL*/}
       <Card className="mb-4">
         <Card.Body>
           <Card.Title>Retry Interval</Card.Title>
@@ -134,6 +151,7 @@ function Settings() {
         </Card.Body>
       </Card>
 
+      {/*NOTIFICATIONS*/}
       <Card className="mb-4">
         <Card.Body>
           <Card.Title>Notifications</Card.Title>
@@ -150,6 +168,36 @@ function Settings() {
         </Card.Body>
       </Card>
 
+      {/*CODEFORCES*/}
+      <Card className="mb-4">
+        <Card.Body>
+          <Card.Title>Codeforces</Card.Title>
+
+          <Form.Group>
+            <Form.Label>Handle</Form.Label>
+
+            <Form.Control
+              type="text"
+              placeholder="e.g. tourist"
+              value={settings.codeforcesHandle}
+              onChange={(e) =>
+                updateSetting(
+                  "codeforcesHandle",
+                  e.target.value.trim()
+                )
+              }
+            />
+          </Form.Group>
+
+          <small className="text-muted d-block mt-2">
+            Recap shows your current streak of days with at
+            least one accepted submission. Leave blank to
+            disable.
+          </small>
+        </Card.Body>
+      </Card>
+
+      {/* SAVE BUTTON*/}
       <div className="d-flex justify-content-end mb-5">
         <Button variant="primary" onClick={saveSettings}>
           Save Settings
