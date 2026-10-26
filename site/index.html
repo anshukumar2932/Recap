@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recap: LeetCode Daily Challenge Reminder Chrome Extension</title>
+<meta name="description" content="Recap is a free Chrome extension that reminds you to solve the LeetCode Daily Challenge and shows completion status, difficulty, topics, and your streak.">
+<link rel="canonical" href="https://anshukumar2932.github.io/Recap/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Recap: LeetCode Daily Challenge Reminder Chrome Extension">
+<meta property="og:description" content="Never miss the LeetCode Daily Challenge. Reminders, completion status, and streak in your toolbar.">
+<meta property="og:url" content="https://anshukumar2932.github.io/Recap/">
+<meta property="og:image" content="https://anshukumar2932.github.io/Recap/recap-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Recap","applicationCategory":"BrowserApplication","operatingSystem":"Chrome","description":"Chrome extension that reminds you to solve the LeetCode Daily Challenge and shows completion status and streak.","url":"https://anshukumar2932.github.io/Recap/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--mut:#555;--ac:#0b57d0}
+@media (prefers-color-scheme:dark){:root{--bg:#141414;--fg:#eee;--mut:#aaa;--ac:#8ab4f8}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,Arial,sans-serif}
+main{max-width:760px;margin:0 auto;padding:32px 20px}
+a{color:var(--ac)}p,li{color:var(--mut)}h1{font-size:2rem}h2{margin-top:2rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Recap: LeetCode Daily Challenge Reminder for Chrome</h1>
+<p>Recap is a free, open-source Chrome extension that reminds you to solve the LeetCode Daily Challenge and shows whether you have completed it.</p>
+<img src="recap-popup-daily-challenge.png" alt="Recap Chrome extension popup showing the LeetCode Daily Challenge and streak" width="400" style="max-width:100%;height:auto">
+<p><a href="ADD_CHROME_WEB_STORE_URL">Add to Chrome</a> | <a href="https://github.com/anshukumar2932/Recap">View on GitHub</a></p>
+<h2>Features</h2>
+<ul>
+<li>Today's LeetCode Daily Challenge with difficulty and topic tags</li>
+<li>Completion status at a glance</li>
+<li>Daily reminder notifications</li>
+<li>Reminders at your chosen time, retrying every 15, 30, 60, or 120 minutes until solved</li>
+<li>LeetCode streak counter and Codeforces streak tracking</li>
+<li>Settings page for reminder time, notifications, and Codeforces handle</li>
+</ul>
+<h2>How it works</h2>
+<p>Recap reads your signed-in LeetCode session and queries the LeetCode GraphQL API. Reminders use Chrome alarms and notifications, with retries until the challenge is completed. <a href="https://github.com/anshukumar2932/Recap/blob/main/docs/architecture.md">Read the technical details</a>.</p>
+<h2>Frequently asked questions</h2>
+<h3>Does Recap send LeetCode reminders?</h3><p>Yes, through Chrome notifications.</p>
+<h3>Do I need a LeetCode account?</h3><p>Yes, you must be signed in to see status and streak.</p>
+<h3>Is Recap free?</h3><p>Yes, it is free and open source.</p>
+<p><a href="https://github.com/anshukumar2932/Recap/blob/main/docs/privacy.md">Privacy</a> | <a href="https://github.com/anshukumar2932/Recap/blob/main/docs/faq.md">Full FAQ</a></p>
+</main>
+</body>
+</html>
