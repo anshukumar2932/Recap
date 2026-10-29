@@ -165,10 +165,30 @@
             and install its dependencies:
         </p>
 
-        <pre><code>git clone https://github.com/anshukumar2932/Recap.git
+        <div class="code-block">
+            <button class="copy-button" type="button" onclick="copyCode(this)">
+                Copy
+            </button>
+
+            <pre><code>git clone https://github.com/anshukumar2932/Recap.git
 cd Recap
 npm install
 npm run build</code></pre>
+        </div>
+
+        <script>
+            function copyCode(button) {
+                const code = button.parentElement.querySelector("code").innerText;
+
+                navigator.clipboard.writeText(code).then(() => {
+                    button.textContent = "Copied!";
+
+                    setTimeout(() => {
+                        button.textContent = "Copy";
+                    }, 1500);
+                });
+            }
+        </script>
 
         <p>
             After the build completes, load the generated <code>dist</code> folder
