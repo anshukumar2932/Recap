@@ -4,10 +4,11 @@ Recap installs in under a minute. Choose the method that fits you.
 
 ## Option 1: Chrome Web Store
 
-1. Open the [Recap listing](ADD_CHROME_WEB_STORE_URL).
+<!-- 1. Open the [Recap listing](ADD_CHROME_WEB_STORE_URL).
 2. Click Add to Chrome and confirm.
 3. Pin Recap from the Chrome extensions menu.
-4. Sign in to leetcode.com, then open the Recap popup.
+4. Sign in to leetcode.com, then open the Recap popup. -->
+Coming Soon !!!
 
 ## Option 2: Download a GitHub release
 
@@ -17,6 +18,7 @@ Recap installs in under a minute. Choose the method that fits you.
 4. Click Load unpacked and select the unzipped folder.
 
 <!-- IMAGE: chrome://extensions with Developer mode and Load unpacked highlighted -->
+
 ![Chrome extensions page with Developer mode and Load unpacked highlighted for installing Recap](../assets/recap-chrome-load-unpacked.png)
 
 ## Option 3: Build from source
