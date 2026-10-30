@@ -6,7 +6,6 @@
     --mut: #5b6472;
     --ac: #0b57d0;
     --ac-hover: #0846aa;
-    --on-ac: #fff;
     --border: #e5e7eb;
     --code-bg: #111827;
     --code-fg: #f3f4f6;
@@ -24,7 +23,6 @@
         --mut: #aeb6c2;
         --ac: #8ab4f8;
         --ac-hover: #a8c7ff;
-        --on-ac: #0b1220;
         --border: #2a303b;
         --code-bg: #090b0f;
         --success: #5ee48a;
@@ -184,13 +182,13 @@ h1 {
 .button-primary {
     background: var(--ac);
     border-color: var(--ac);
-    color: var(--on-ac)
+    color: #fff
 }
 
 .button-primary:hover {
     background: var(--ac-hover);
     border-color: var(--ac-hover);
-    color: var(--on-ac)
+    color: #fff
 }
 
 .button-secondary {
@@ -311,7 +309,7 @@ section {
     place-items: center;
     border-radius: 50%;
     background: var(--ac);
-    color: var(--on-ac);
+    color: #fff;
     font-weight: 800
 }
 
@@ -392,6 +390,22 @@ details p {
     color: var(--mut)
 }
 
+.share-section {
+    text-align: center
+}
+
+.share-section p {
+    color: var(--mut)
+}
+
+.share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px
+}
+
 footer {
     padding: 36px 0;
     border-top: 1px solid var(--border);
@@ -403,103 +417,11 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    margin-bottom: 16px
+    margin-bottom: 12px
 }
 
 .footer-links a {
     text-decoration: none
-}
-
-/* social links */
-.social-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 0 0 16px
-}
-
-.social-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
-    border: 1px solid transparent;
-    border-radius: 12px;
-    color: #fff;
-    text-decoration: none;
-    font-size: .95rem;
-    font-weight: 600;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
-    transition: transform .2s ease, box-shadow .2s ease, background .2s ease
-}
-
-.social-btn:hover {
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .22)
-}
-
-.social-btn:active {
-    transform: translateY(0)
-}
-
-.social-btn:focus-visible {
-    outline: 3px solid var(--ac);
-    outline-offset: 2px
-}
-
-.social-btn svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-    flex: none
-}
-
-.social-btn .external-icon {
-    width: 12px;
-    height: 12px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    opacity: .7;
-    transition: transform .2s ease
-}
-
-.social-btn:hover .external-icon {
-    transform: translate(2px, -2px)
-}
-
-.social-btn.github {
-    background: #18181b;
-    border-color: #3f3f46
-}
-
-.social-btn.github:hover {
-    background: #27272a
-}
-
-.social-btn.linkedin {
-    background: #0a66c2;
-    border-color: #0a66c2
-}
-
-.social-btn.linkedin:hover {
-    background: #084f96
-}
-
-@media (prefers-reduced-motion:reduce) {
-
-    .social-btn,
-    .social-btn .external-icon {
-        transition: none
-    }
-
-    .social-btn:hover,
-    .social-btn:hover .external-icon {
-        transform: none
-    }
 }
 
 /* inner pages */
@@ -611,7 +533,7 @@ footer {
     place-items: center;
     border-radius: 50%;
     background: var(--ac);
-    color: var(--on-ac);
+    color: #fff;
     font-weight: 800
 }
 
@@ -725,14 +647,5 @@ footer {
 
     .code-block pre {
         padding: 52px 20px 22px
-    }
-
-    .social-links {
-        flex-direction: column
-    }
-
-    .social-btn {
-        justify-content: center;
-        width: 100%
     }
 }
