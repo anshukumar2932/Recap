@@ -409,6 +409,16 @@ footer {
 .footer-links a {
     text-decoration: none
 }
+.footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.footer-nav a {
+    text-decoration: none;
+}
 
 /* social links */
 .social-links {
