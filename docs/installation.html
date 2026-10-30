@@ -8,46 +8,209 @@
     <title>How to Install Recap – LeetCode Daily Challenge Chrome Extension</title>
 
     <meta name="description"
-        content="Learn how to install the Recap Chrome extension for LeetCode Daily Challenge reminders. Download Recap from GitHub and install it using Chrome's Load unpacked option.">
+        content="Learn how to install Recap, a free Chrome extension for LeetCode Daily Challenge reminders. Download Recap from GitHub and install it using Chrome's Load unpacked option.">
 
     <link rel="canonical" href="https://anshukumar2932.github.io/Recap/installation.html">
     <link rel="icon" href="assets/favicon.png">
+
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0b57d0">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Recap">
+    <meta property="og:title" content="How to Install Recap – LeetCode Chrome Extension">
+    <meta property="og:description"
+        content="Step-by-step instructions for downloading and installing the Recap Chrome extension for LeetCode Daily Challenge reminders.">
+    <meta property="og:url" content="https://anshukumar2932.github.io/Recap/installation.html">
+    <meta property="og:image" content="https://anshukumar2932.github.io/Recap/assets/recap-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Recap LeetCode Daily Challenge Chrome extension">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Install Recap – LeetCode Chrome Extension">
+    <meta name="twitter:description"
+        content="Download Recap and install the LeetCode Daily Challenge reminder Chrome extension using Load unpacked.">
+    <meta name="twitter:image" content="https://anshukumar2932.github.io/Recap/assets/recap-og.png">
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "How to Install Recap – LeetCode Daily Challenge Chrome Extension",
+        "description": "Step-by-step instructions for installing the Recap Chrome extension for LeetCode Daily Challenge reminders.",
+        "url": "https://anshukumar2932.github.io/Recap/installation.html",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Recap",
+            "url": "https://anshukumar2932.github.io/Recap/"
+        }
+    }
+    </script>
 
     <style>
         :root {
-            --bg: #fff;
-            --fg: #1a1a1a;
-            --mut: #555;
+            --bg: #ffffff;
+            --surface: #f8fafc;
+            --surface-hover: #f1f5f9;
+            --fg: #111827;
+            --mut: #5b6472;
             --ac: #0b57d0;
-            --border: #e5e5e5;
+            --ac-hover: #0846aa;
+            --border: #e5e7eb;
+            --code-bg: #111827;
+            --code-fg: #f3f4f6;
+            --success: #16803c;
+            --radius: 12px;
+            --shadow: 0 8px 30px rgba(15, 23, 42, 0.07);
         }
 
-        @media (prefers-color-scheme:dark) {
+        @media (prefers-color-scheme: dark) {
             :root {
-                --bg: #141414;
-                --fg: #eee;
-                --mut: #aaa;
+                --bg: #0f1115;
+                --surface: #171a21;
+                --surface-hover: #1e232d;
+                --fg: #f3f4f6;
+                --mut: #aeb6c2;
                 --ac: #8ab4f8;
-                --border: #333;
+                --ac-hover: #a8c7ff;
+                --border: #2a303b;
+                --code-bg: #090b0f;
+                --code-fg: #f3f4f6;
+                --success: #5ee48a;
+                --shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
             }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             margin: 0;
             background: var(--bg);
             color: var(--fg);
-            font: 16px/1.6 system-ui, Arial, sans-serif;
-        }
-
-        main {
-            max-width: 760px;
-            margin: 0 auto;
-            padding: 32px 20px;
+            font: 16px/1.7 system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Arial, sans-serif;
         }
 
         a {
             color: var(--ac);
+        }
+
+        a:hover {
+            color: var(--ac-hover);
+        }
+
+        .container {
+            width: min(900px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        /* Header */
+
+        header {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            color: var(--fg);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.15rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .nav-links a {
+            color: var(--mut);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--fg);
+        }
+
+        /* Main */
+
+        main {
+            padding: 56px 0 72px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 24px;
+            color: var(--mut);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+        }
+
+        .hero {
+            max-width: 760px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--ac);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            max-width: 800px;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            line-height: 1.08;
+            letter-spacing: -0.04em;
+        }
+
+        .intro {
+            margin: 20px 0 0;
+            color: var(--mut);
+            font-size: 1.08rem;
+            max-width: 720px;
+        }
+
+        section {
+            margin-top: 56px;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+        }
+
+        h3 {
+            margin-top: 28px;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
         }
 
         p,
@@ -55,192 +218,562 @@
             color: var(--mut);
         }
 
-        h1 {
-            font-size: 2rem;
-            line-height: 1.2;
+        /* Download card */
+
+        .download-card {
+            margin-top: 28px;
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            box-shadow: var(--shadow);
         }
 
-        h2 {
-            margin-top: 2rem;
-            line-height: 1.3;
+        .download-card h2 {
+            margin-top: 0;
         }
 
-        code {
-            padding: 2px 5px;
-            border-radius: 4px;
-            background: rgba(127, 127, 127, .15);
-        }
-
-        .download {
+        .version {
             display: inline-block;
-            margin: 12px 0 20px;
-            padding: 12px 18px;
-            border-radius: 8px;
-            background: var(--ac);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
+            margin-bottom: 14px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(11, 87, 208, 0.1);
+            color: var(--ac);
+            font-size: 0.82rem;
+            font-weight: 800;
         }
 
-        .download:hover {
-            opacity: .9;
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 11px 18px;
+            border-radius: 9px;
+            background: var(--ac);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 800;
         }
+
+        .download-button:hover {
+            background: var(--ac-hover);
+            color: #ffffff;
+        }
+
+        .download-note {
+            margin: 12px 0 0;
+            font-size: 0.9rem;
+        }
+
+        /* Steps */
+
+        .steps {
+            display: grid;
+            gap: 14px;
+            margin-top: 24px;
+            padding: 0;
+            list-style: none;
+            counter-reset: steps;
+        }
+
+        .steps li {
+            position: relative;
+            padding: 20px 20px 20px 64px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--bg);
+            counter-increment: steps;
+        }
+
+        .steps li::before {
+            content: counter(steps);
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--ac);
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .steps strong {
+            color: var(--fg);
+        }
+
+        /* Code block */
+
+        .code-block {
+            position: relative;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--code-bg);
+            overflow: hidden;
+        }
+
+        .code-block pre {
+            margin: 0;
+            padding: 22px 82px 22px 20px;
+            overflow-x: auto;
+            color: var(--code-fg);
+            font: 14px/1.7 ui-monospace, SFMono-Regular, Consolas,
+                "Liberation Mono", monospace;
+        }
+
+        .code-block code {
+            padding: 0;
+            background: transparent;
+            color: inherit;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 7px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font: 13px system-ui, Arial, sans-serif;
+            cursor: pointer;
+        }
+
+        .copy-button:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .copy-button.copied {
+            color: var(--success);
+        }
+
+        /* Notes */
 
         .note {
-            padding: 14px 16px;
+            margin-top: 24px;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
             border-left: 4px solid var(--ac);
-            background: rgba(127, 127, 127, .08);
-            border-radius: 4px;
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        .note strong {
+            color: var(--fg);
+        }
+
+        /* FAQ */
+
+        .faq-list {
+            margin-top: 22px;
+        }
+
+        details {
+            margin: 10px 0;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg);
+            overflow: hidden;
+        }
+
+        summary {
+            position: relative;
+            padding: 16px 48px 16px 18px;
+            cursor: pointer;
+            font-weight: 750;
+            color: var(--fg);
+            list-style: none;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "+";
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--mut);
+            font-size: 1.25rem;
+        }
+
+        details[open] summary::after {
+            content: "−";
+        }
+
+        details p {
+            margin: 0;
+            padding: 0 18px 18px;
+        }
+
+        /* Footer */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 650px) {
+            .container {
+                width: min(100% - 28px, 900px);
+            }
+
+            .nav {
+                display: block;
+                padding: 16px 0;
+            }
+
+            .brand {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            main {
+                padding: 40px 0 56px;
+            }
+
+            .download-button {
+                width: 100%;
+            }
+
+            .code-block pre {
+                padding-right: 20px;
+                padding-top: 52px;
+            }
+
+            .copy-button {
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 
 <body>
+
+    <header>
+        <div class="container nav">
+
+            <a class="brand" href="index.html">Recap</a>
+
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="installation.html" aria-current="page">Install</a>
+                <a href="https://github.com/anshukumar2932/Recap">GitHub</a>
+            </nav>
+
+        </div>
+    </header>
+
     <main>
+        <div class="container">
 
-        <p>
-            <a href="./">&larr; Back to Recap</a>
-        </p>
+            <div class="breadcrumb">
+                <a href="./">Recap</a>
+                <span aria-hidden="true"> / </span>
+                Installation
+            </div>
 
-        <h1>How to Install the Recap Chrome Extension</h1>
+            <div class="hero">
+                <span class="eyebrow">Installation guide</span>
 
-        <p>
-            Recap is a free Chrome extension that helps you stay consistent with the
-            LeetCode Daily Challenge by providing reminders and completion tracking.
-            You can download the latest release from GitHub and install it using
-            Chrome's <strong>Load unpacked</strong> option.
-        </p>
+                <h1>Install the Recap Chrome Extension</h1>
 
-        <h2>Download Recap</h2>
+                <p class="intro">
+                    Download Recap from GitHub and install it in Chrome using
+                    <strong>Load unpacked</strong>. You can be up and running
+                    with LeetCode Daily Challenge reminders in a few steps.
+                </p>
+            </div>
 
-        <p>
-            Download Recap v0.2.1 directly from the official GitHub release:
-        </p>
+            <!-- Download -->
 
-        <a class="download" href="https://github.com/anshukumar2932/Recap/releases/download/v0.2.1/Recap-v0.2.1.zip">
-            Download Recap v0.2.1
-        </a>
+            <section aria-labelledby="download-heading">
 
-        <p>
-            After downloading, unzip the file before installing the extension.
-        </p>
+                <div class="download-card">
 
-        <h2>Install Recap with Chrome Load Unpacked</h2>
+                    <span class="version">Version 0.2.1</span>
 
-        <ol>
-            <li>
-                Download and unzip the Recap ZIP file using the button above.
-            </li>
+                    <h2 id="download-heading">Download Recap</h2>
 
-            <li>
-                Open <code>chrome://extensions</code> in Google Chrome.
-            </li>
+                    <p>
+                        Download the Recap v0.2.1 ZIP directly from the official
+                        GitHub release.
+                    </p>
 
-            <li>
-                Turn on <strong>Developer mode</strong> in the top-right corner.
-            </li>
+                    <a class="download-button"
+                        href="https://github.com/anshukumar2932/Recap/releases/download/v0.2.1/Recap-v0.2.1.zip">
+                        Download Recap v0.2.1
+                    </a>
 
-            <li>
-                Click <strong>Load unpacked</strong>.
-            </li>
+                    <p class="download-note">
+                        The download is a ZIP file. Unzip it before installing
+                        the extension.
+                    </p>
 
-            <li>
-                Select the extension's <code>dist</code> folder.
-            </li>
+                </div>
 
-            <li>
-                Once Recap is installed, pin it from Chrome's extensions menu.
-            </li>
+            </section>
 
-            <li>
-                Sign in to LeetCode and open Recap to complete the initial setup.
-            </li>
-        </ol>
+            <!-- Installation -->
 
-        <h2>Build Recap from Source</h2>
+            <section aria-labelledby="install-heading">
 
-        <p>
-            If you prefer to build Recap yourself, clone the
-            <a href="https://github.com/anshukumar2932/Recap">Recap GitHub repository</a>
-            and install its dependencies:
-        </p>
+                <h2 id="install-heading">
+                    Install Recap with Chrome Load Unpacked
+                </h2>
 
-        <div class="code-block">
-            <button class="copy-button" type="button" onclick="copyCode(this)">
-                Copy
-            </button>
+                <p>
+                    Chrome lets you install an unpacked extension while
+                    Developer mode is enabled. Follow these steps:
+                </p>
 
-            <pre><code>git clone https://github.com/anshukumar2932/Recap.git
+                <ol class="steps">
+
+                    <li>
+                        <strong>Download and unzip Recap.</strong>
+                        Use the download button above and extract the ZIP file
+                        to a folder on your computer.
+                    </li>
+
+                    <li>
+                        <strong>Open Chrome's extensions page.</strong>
+                        Enter <code>chrome://extensions</code> in the Chrome
+                        address bar.
+                    </li>
+
+                    <li>
+                        <strong>Enable Developer mode.</strong>
+                        Turn on <strong>Developer mode</strong> using the
+                        switch in the top-right corner.
+                    </li>
+
+                    <li>
+                        <strong>Load the extension.</strong>
+                        Click <strong>Load unpacked</strong> and select the
+                        Recap <code>dist</code> folder.
+                    </li>
+
+                    <li>
+                        <strong>Pin Recap.</strong>
+                        Open Chrome's extensions menu and pin Recap for
+                        convenient access from the toolbar.
+                    </li>
+
+                    <li>
+                        <strong>Sign in to LeetCode.</strong>
+                        Sign in to LeetCode in Chrome, then open Recap to
+                        complete the initial setup.
+                    </li>
+
+                </ol>
+
+            </section>
+
+            <!-- Build from source -->
+
+            <section aria-labelledby="source-heading">
+
+                <h2 id="source-heading">Build Recap from Source</h2>
+
+                <p>
+                    If you want to build Recap yourself, clone the
+                    <a href="https://github.com/anshukumar2932/Recap">
+                        Recap GitHub repository
+                    </a>
+                    and install its dependencies.
+                </p>
+
+                <div class="code-block">
+
+                    <button class="copy-button" type="button" onclick="copyCode(this)">
+                        Copy
+                    </button>
+
+                    <pre><code>git clone https://github.com/anshukumar2932/Recap.git
 cd Recap
 npm install
 npm run build</code></pre>
+
+                </div>
+
+                <p>
+                    After the build completes, load the generated
+                    <code>dist</code> folder using Chrome's
+                    <strong>Load unpacked</strong> option.
+                </p>
+
+            </section>
+
+            <!-- Setup -->
+
+            <section aria-labelledby="setup-heading">
+
+                <h2 id="setup-heading">First-Time Setup</h2>
+
+                <p>
+                    After installing Recap, open the extension settings and
+                    configure the options you want to use:
+                </p>
+
+                <ul>
+                    <li>Your daily reminder time</li>
+                    <li>The reminder retry interval</li>
+                    <li>Chrome notifications</li>
+                    <li>Your optional Codeforces handle</li>
+                </ul>
+
+                <div class="note">
+                    <strong>Need help?</strong>
+                    If something is not working after installation, see the
+                    <a href="troubleshooting.html">
+                        Recap troubleshooting guide
+                    </a>.
+                </div>
+
+            </section>
+
+            <!-- FAQ -->
+
+            <section aria-labelledby="faq-heading">
+
+                <h2 id="faq-heading">Recap Installation FAQ</h2>
+
+                <div class="faq-list">
+
+                    <details>
+                        <summary>Is Recap free?</summary>
+                        <p>
+                            Yes. Recap is a free and open-source Chrome
+                            extension.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Do I need Chrome to install Recap?</summary>
+                        <p>
+                            Yes. Recap is designed as a Chrome extension and
+                            is installed through Chrome's extensions page.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Do I need a LeetCode account?</summary>
+                        <p>
+                            Yes. Sign in to LeetCode in Chrome after installing
+                            Recap so the extension can check your Daily
+                            Challenge status.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Where do I find the Recap extension folder?</summary>
+                        <p>
+                            When installing the pre-built release, select the
+                            extracted <code>dist</code> folder when you click
+                            <strong>Load unpacked</strong>.
+                        </p>
+                    </details>
+
+                </div>
+
+            </section>
+
+            <!-- Navigation -->
+
+            <section aria-label="More Recap resources">
+
+                <p>
+                    <a href="https://github.com/anshukumar2932/Recap">
+                        View Recap on GitHub
+                    </a>
+                </p>
+
+            </section>
+
         </div>
-
-        <script>
-            function copyCode(button) {
-                const code = button.parentElement.querySelector("code").innerText;
-
-                navigator.clipboard.writeText(code).then(() => {
-                    button.textContent = "Copied!";
-
-                    setTimeout(() => {
-                        button.textContent = "Copy";
-                    }, 1500);
-                });
-            }
-        </script>
-
-        <p>
-            After the build completes, load the generated <code>dist</code> folder
-            through Chrome's <strong>Load unpacked</strong> option.
-        </p>
-
-        <h2>First-Time Setup</h2>
-
-        <p>
-            After installing Recap, open the extension's settings page to configure:
-        </p>
-
-        <ul>
-            <li>Your daily reminder time</li>
-            <li>The reminder retry interval</li>
-            <li>Chrome notifications</li>
-            <li>Your optional Codeforces handle</li>
-        </ul>
-
-        <div class="note">
-            <strong>Need help?</strong>
-            Visit the
-            <a href="troubleshooting.html">Recap troubleshooting guide</a>
-            if you have problems installing or using the extension.
-        </div>
-
-        <h2>Recap Installation FAQ</h2>
-
-        <h3>Is Recap free?</h3>
-        <p>
-            Yes. Recap is a free and open-source Chrome extension.
-        </p>
-
-        <h3>Do I need Chrome to install Recap?</h3>
-        <p>
-            Yes. Recap is designed as a Chrome extension and is installed through
-            Chrome's extensions page.
-        </p>
-
-        <h3>Do I need to sign in to LeetCode?</h3>
-        <p>
-            Yes. Sign in to LeetCode after installing Recap so the extension can
-            check your Daily Challenge status.
-        </p>
-
-        <p>
-            <a href="./">&larr; Back to Recap</a>
-            |
-            <a href="https://github.com/anshukumar2932/Recap">View Recap on GitHub</a>
-        </p>
-
     </main>
+
+    <footer>
+        <div class="container">
+
+            <div class="footer-links">
+                <a href="./">Recap</a>
+                <a href="installation.html">Installation</a>
+                <a href="https://github.com/anshukumar2932/Recap">
+                    GitHub
+                </a>
+                <a href="https://github.com/anshukumar2932/Recap/blob/main/docs/privacy.md">
+                    Privacy
+                </a>
+            </div>
+
+            <p>
+                Recap is a free, open-source Chrome extension for
+                LeetCode Daily Challenge reminders and streak tracking.
+            </p>
+
+        </div>
+    </footer>
+
+    <script>
+        async function copyCode(button) {
+            const code = button
+                .parentElement
+                .querySelector("code")
+                .innerText;
+
+            try {
+                await navigator.clipboard.writeText(code);
+
+                button.textContent = "Copied!";
+                button.classList.add("copied");
+
+                setTimeout(() => {
+                    button.textContent = "Copy";
+                    button.classList.remove("copied");
+                }, 1500);
+
+            } catch (error) {
+                button.textContent = "Copy failed";
+
+                setTimeout(() => {
+                    button.textContent = "Copy";
+                }, 1500);
+            }
+        }
+    </script>
+
 </body>
 
 </html>
