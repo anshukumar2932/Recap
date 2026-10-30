@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anshukumar2932.github.io/Recap/sitemap.xml
