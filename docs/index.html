@@ -48,6 +48,15 @@
         "image": "https://anshukumar2932.github.io/Recap/assets/recap-og.png",
         "isAccessibleForFree": true,
         "codeRepository": "https://github.com/anshukumar2932/Recap",
+        "author": {
+            "@type": "Person",
+            "name": "Anshu Kumar",
+            "url": "https://github.com/anshukumar2932",
+            "sameAs": [
+                "https://github.com/anshukumar2932",
+                "https://www.linkedin.com/in/anshu-kumar-sde/"
+            ]
+        },
         "offers": {
             "@type": "Offer",
             "price": "0",
@@ -65,6 +74,7 @@
             --mut: #5b6472;
             --ac: #0b57d0;
             --ac-hover: #0846aa;
+            --on-ac: #ffffff;
             --border: #e5e7eb;
             --code-bg: #f3f4f6;
             --shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
@@ -80,6 +90,7 @@
                 --mut: #aeb6c2;
                 --ac: #8ab4f8;
                 --ac-hover: #a8c7ff;
+                --on-ac: #0b1220;
                 --border: #2a303b;
                 --code-bg: #191d24;
                 --shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
@@ -224,13 +235,13 @@
         .button-primary {
             background: var(--ac);
             border-color: var(--ac);
-            color: #fff;
+            color: var(--on-ac);
         }
 
         .button-primary:hover {
             background: var(--ac-hover);
             border-color: var(--ac-hover);
-            color: #fff;
+            color: var(--on-ac);
         }
 
         .button-secondary {
@@ -341,7 +352,7 @@
             place-items: center;
             border-radius: 50%;
             background: var(--ac);
-            color: #fff;
+            color: var(--on-ac);
             font-weight: 800;
         }
 
@@ -440,6 +451,101 @@
             text-decoration: none;
         }
 
+        .footer-links {
+            margin-bottom: 16px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 0 0 16px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .social-btn:hover {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
+        }
+
+        .social-btn:active {
+            transform: translateY(0);
+        }
+
+        .social-btn:focus-visible {
+            outline: 3px solid var(--ac);
+            outline-offset: 2px;
+        }
+
+        .social-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex: none;
+        }
+
+        .social-btn .external-icon {
+            width: 12px;
+            height: 12px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.7;
+            transition: transform 0.2s ease;
+        }
+
+        .social-btn:hover .external-icon {
+            transform: translate(2px, -2px);
+        }
+
+        .social-btn.github {
+            background: #18181b;
+            border-color: #3f3f46;
+        }
+
+        .social-btn.github:hover {
+            background: #27272a;
+        }
+
+        .social-btn.linkedin {
+            background: #0a66c2;
+            border-color: #0a66c2;
+        }
+
+        .social-btn.linkedin:hover {
+            background: #084f96;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .social-btn,
+            .social-btn .external-icon {
+                transition: none;
+            }
+
+            .social-btn:hover,
+            .social-btn:hover .external-icon {
+                transform: none;
+            }
+        }
+
         .code {
             padding: 2px 5px;
             border-radius: 5px;
@@ -509,6 +615,15 @@
             section {
                 padding: 48px 0;
             }
+
+            .social-links {
+                flex-direction: column;
+            }
+
+            .social-btn {
+                justify-content: center;
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -522,14 +637,15 @@
             <a class="brand" href="index.html">Recap</a>
 
             <nav class="nav-links" aria-label="Main navigation">
+                <a href="index.html">Home</a>
                 <a href="installation.html">Install</a>
+                <a href="troubleshooting.html">Troubleshooting</a>
                 <a href="#features">Features</a>
                 <a href="#faq">FAQ</a>
                 <a href="https://github.com/anshukumar2932/Recap">GitHub</a>
             </nav>
         </div>
     </header>
-
     <main id="main-content">
 
         <!-- Hero -->
@@ -827,29 +943,59 @@
         </section>
 
     </main>
+    <footer class="site-footer">
+        <div class="container narrow">
 
-    <footer>
-        <div class="container">
-
-            <div class="footer-links">
+            <nav class="footer-nav" aria-label="Footer navigation">
                 <a href="index.html">Recap</a>
                 <a href="installation.html">Installation</a>
-                <a href="https://github.com/anshukumar2932/Recap">
-                    GitHub
-                </a>
+                <a href="troubleshooting.html">Troubleshooting</a>
+                <a href="https://github.com/anshukumar2932/Recap">GitHub</a>
                 <a href="https://github.com/anshukumar2932/Recap/blob/main/docs/privacy.md">
                     Privacy
                 </a>
-            </div>
+            </nav>
 
-            <div>
-                Recap is a free, open-source Chrome extension for LeetCode
-                Daily Challenge reminders and streak tracking.
-            </div>
+            <address class="social-links" aria-label="Social profiles">
+                <a class="social-btn github" href="https://github.com/anshukumar2932" rel="me noopener noreferrer"
+                    target="_blank" aria-label="GitHub profile (opens in a new tab)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path
+                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                    </svg>
+                    <span>GitHub</span>
+                    <svg class="external-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 17L17 7M8 7h9v9" />
+                    </svg>
+                </a>
+
+                <a class="social-btn linkedin" href="https://www.linkedin.com/in/anshu-kumar-sde/"
+                    rel="me noopener noreferrer" target="_blank" aria-label="LinkedIn profile (opens in a new tab)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                    <span>LinkedIn</span>
+                    <svg class="external-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 17L17 7M8 7h9v9" />
+                    </svg>
+                </a>
+            </address>
+
+            <p class="footer-description">
+                Recap is a free, open-source Chrome extension for
+                <a href="https://leetcode.com/problemset/?page=1">
+                    LeetCode Daily Challenge
+                </a>
+                reminders and streak tracking.
+            </p>
+
+            <p class="footer-copyright">
+                © 2026 Recap. Open source and built for developers who like keeping their streak alive.
+            </p>
 
         </div>
     </footer>
-
 </body>
 
 </html>
